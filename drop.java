@@ -15,7 +15,7 @@ public class drop extends JFrame
 	static int yThunderEnd = 0;
 	static int xThunderEnd = 0;*/
 	public static block[] regen;
-	public static Color bg = new Color(211,211,211); //background color
+	public static Color bg = new Color(150,150,150); //background color
 	public static void main(String[] args) throws InterruptedException
 	{
 		int amountOfDrops = 0;
@@ -153,15 +153,15 @@ public class drop extends JFrame
 				default:   
 				if(regen[i].getYSize() > 11)
 				{
-					regen[i].setB(244);
-					regen[i].setG(30+(11*11));
-					regen[i].setR(30+(11*11));
+					regen[i].setB(250);
+					regen[i].setG(110);
+					regen[i].setR(110);
 				}
 				else
 				{
-					regen[i].setB(255-(regen[i].getYSize()));
-					regen[i].setG(30+(regen[i].getYSize()*regen[i].getYSize()));
-					regen[i].setR(30+(regen[i].getYSize()*regen[i].getYSize()));
+					regen[i].setB(259-(regen[i].getYSize()));
+					regen[i].setG(0+(regen[i].getYSize()*regen[i].getYSize()));
+					regen[i].setR(0+(regen[i].getYSize()*regen[i].getYSize()));
 				}
 				thunderReset = 0;
 			}
