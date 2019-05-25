@@ -90,6 +90,31 @@ public class drop extends JFrame
 				case "CUSTOM":
 				if(i == 0)
 				{
+					//background colors
+					System.out.println("Input the red (0-255) [Background]");
+					regen[i].setR(checkIsInputNumber(scan.next()));
+					while(regen[i].getR() < 0 || regen[i].getR() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setR(checkIsInputNumber(scan.next()));
+					}
+					System.out.println("Input the green (0-255) [Background]");
+					regen[i].setG(checkIsInputNumber(scan.next()));
+					while(regen[i].getG() < 0 || regen[i].getG() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setG(checkIsInputNumber(scan.next()));
+					}
+					System.out.println("Input the blue (0-255) [Background]");
+					regen[i].setB(checkIsInputNumber(scan.next()));
+					while(regen[i].getB() < 0 || regen[i].getB() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setB(checkIsInputNumber(scan.next()));
+					}
+					bg = new Color(regen[i].getR(), regen[i].getG(), regen[i].getB());
+					//end of background colors
+					//colors of rain drops
 					System.out.println("Input the red (0-255)");
 					regen[i].setR(checkIsInputNumber(scan.next()));
 					while(regen[i].getR() < 0 || regen[i].getR() > 255)
@@ -111,11 +136,7 @@ public class drop extends JFrame
 						System.out.println("Wrong input.");
 						regen[i].setB(checkIsInputNumber(scan.next()));
 					}
-					System.out.println("Input the colors for the background: [RGB]");
-					bg = new Color(checkIsInputNumber(scan.next()),checkIsInputNumber(scan.next()),checkIsInputNumber(scan.next()));
-					
 				}
-				
 				else
 				{
 					regen[i].setB(regen[0].getB());
@@ -139,6 +160,7 @@ public class drop extends JFrame
 			}
 			regen[i].setSpeed(randGen((int)(regen[i].getYSize()*1.6),(int)(regen[i].getYSize()*1.6)-5)); //speed gen: for size x the f(x) = 1.8*x (max) and min f(x) = 1.8*x-5 where f is speed
 		}
+		System.out.println("Starting program.");
 		drop gui = new drop();
 		gui.setSize(height, width);
 		gui.setTitle("Rain");
