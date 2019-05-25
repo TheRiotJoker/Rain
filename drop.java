@@ -8,8 +8,14 @@ public class drop extends JFrame
 	Graphics doubleBufferGraphics;
 	static int width = 1000; //x actually length
 	static int height = 1000;
+	static int thunder = 0;
+	static int thunderReset = 1;
+	/*static int xThunderBegin = 0;
+	static int yThunderBegin = 0;
+	static int yThunderEnd = 0;
+	static int xThunderEnd = 0;*/
 	public static block[] regen;
-	public static Color bg = new Color(222,222,222); //background color
+	public static Color bg = new Color(211,211,211); //background color
 	public static void main(String[] args) throws InterruptedException
 	{
 		int amountOfDrops = 0;
@@ -71,8 +77,8 @@ public class drop extends JFrame
 				if(regen[i].getYSize() > 11)
 				{
 					regen[i].setR(255-(11));
-					regen[i].setB(0+(11*11));
-					regen[i].setG(0+(11*11));
+					regen[i].setB(121);
+					regen[i].setG(121);
 				}
 				else
 				{
@@ -147,7 +153,7 @@ public class drop extends JFrame
 				default:   
 				if(regen[i].getYSize() > 11)
 				{
-					regen[i].setB(255-(11));
+					regen[i].setB(244);
 					regen[i].setG(30+(11*11));
 					regen[i].setR(30+(11*11));
 				}
@@ -157,8 +163,9 @@ public class drop extends JFrame
 					regen[i].setG(30+(regen[i].getYSize()*regen[i].getYSize()));
 					regen[i].setR(30+(regen[i].getYSize()*regen[i].getYSize()));
 				}
+				thunderReset = 0;
 			}
-			regen[i].setSpeed(randGen((int)(regen[i].getYSize()*1.6),(int)(regen[i].getYSize()*1.6)-5)); //speed gen: for size x the f(x) = 1.8*x (max) and min f(x) = 1.8*x-5 where f is speed
+			regen[i].setSpeed(randGen((int)(regen[i].getYSize()*1.6),(int)(regen[i].getYSize()*1.6)-5)); //speed gen: for size x the f(x) = 1.6*x (max) and min f(x) = 1.6*x-5 where f is speed
 		}
 		System.out.println("Starting program.");
 		drop gui = new drop();
@@ -170,6 +177,11 @@ public class drop extends JFrame
 		scan.close();
 		while(true)
 		{
+			if(thunderReset == 0)
+			{
+				thunder = randGen(555,0);
+			}
+			//System.out.println(thunder);
 			for(int i = 0; i < regen.length; i++)
 			{
 				regen[i].setY(regen[i].getY()+regen[i].getSpeed()); //movement
@@ -215,11 +227,42 @@ public class drop extends JFrame
 	}
 	public void paintComponent(Graphics g)
 	{
-		g.setColor(bg);
-		g.fillRect(0,0,width,height);
+		Color rain = new Color(0,0,0);
+		Color thunderColor = new Color(244,244,244);
+		if(thunder == 1)
+		{
+			/*if(thunderReset == 0)
+			{
+				xThunderBegin = randGen(width-5,5);
+				yThunderEnd = randGen(height/3, height/5);
+				xThunderEnd = randGen(width,0);
+			}*/
+			if(thunderReset == randGen(10,0))
+			{
+				g.setColor(bg);
+				g.fillRect(0,0,width,height);
+			}
+			else
+			{
+				g.setColor(thunderColor);
+				g.fillRect(0,0,width,height);
+			}
+			//g.drawLine(xThunderBegin, yThunderBegin, xThunderEnd, yThunderEnd);
+			thunderReset++;
+			if(thunderReset == 10)
+			{
+				thunder = 0;
+				thunderReset = 0;
+			}
+		}
+		else     
+		{
+			g.setColor(bg);
+			g.fillRect(0,0,width,height);
+		}
 		for(int i = 0; i < regen.length; i++)
 		{
-			Color rain = new Color(regen[i].getR(),regen[i].getG(),regen[i].getB());
+			rain = new Color(regen[i].getR(),regen[i].getG(),regen[i].getB());
 			g.setColor(rain);
 			g.fillRect(regen[i].getX(),regen[i].getY(),regen[i].getXSize(),regen[i].getYSize());
 			if(regen[i].getY() == height)
