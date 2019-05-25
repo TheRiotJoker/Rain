@@ -24,9 +24,9 @@ public class drop extends JFrame
 		System.out.println("Purple");
 		System.out.println("Red");
 		System.out.println("Rainbow");
+		System.out.println("Custom");
 		System.out.print("Please input the color: ");
 		choice = scan.next();
-		scan.close();
 		regen = new block[amountOfDrops];
 		for(int i = 0; i < regen.length; i++) //generation block for the rain drops
 		{
@@ -35,9 +35,9 @@ public class drop extends JFrame
 			regen[i].setY(randGen(200,1)*(-1)); //rand pos off of the screen(in Y direction, so upwards)
 			regen[i].setYSize(randGen(15,4)); //length of the block
 			regen[i].setXSize((int)(regen[i].getYSize()/4.5)); //the width of the block depending on the length (f(x) = x/4.5)
-			switch(choice)
+			switch(choice.toUpperCase())
 			{
-				case "green":
+				case "GREEN":
 					if(regen[i].getYSize() > 11)
 					{
 						regen[i].setG(255-(11));
@@ -52,7 +52,7 @@ public class drop extends JFrame
 					}	
 					bg = new Color(0,0,0);
 				break;
-				case "purple":
+				case "PURPLE":
 				if(regen[i].getYSize() > 11)
 				{
 					regen[i].setR(230-(11));
@@ -67,7 +67,7 @@ public class drop extends JFrame
 				}	
 				bg = new Color(230,230,250);
 				break;
-				case "red":
+				case "RED":
 				if(regen[i].getYSize() > 11)
 				{
 					regen[i].setR(255-(11));
@@ -81,11 +81,47 @@ public class drop extends JFrame
 					regen[i].setG(0+(regen[i].getYSize()*regen[i].getYSize()));
 				}
 				break;
-				case "rainbow":
+				case "RAINBOW":
 				regen[i].setB(randGen(255,0));
 				regen[i].setG(randGen(255,0));
 				regen[i].setR(randGen(255,0));
 				bg = new Color(randGen(255,0),randGen(255,0),randGen(255,0));
+				break;
+				case "CUSTOM":
+				if(i == 0)
+				{
+					System.out.println("Input the red (0-255)");
+					regen[i].setR(checkIsInputNumber(scan.next()));
+					while(regen[i].getR() < 0 || regen[i].getR() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setR(checkIsInputNumber(scan.next()));
+					}
+					System.out.println("Input the green (0-255)");
+					regen[i].setG(checkIsInputNumber(scan.next()));
+					while(regen[i].getG() < 0 || regen[i].getG() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setG(checkIsInputNumber(scan.next()));
+					}
+					System.out.println("Input the blue (0-255)");
+					regen[i].setB(checkIsInputNumber(scan.next()));
+					while(regen[i].getB() < 0 || regen[i].getB() > 255)
+					{
+						System.out.println("Wrong input.");
+						regen[i].setB(checkIsInputNumber(scan.next()));
+					}
+					System.out.println("Input the colors for the background: [RGB]");
+					bg = new Color(checkIsInputNumber(scan.next()),checkIsInputNumber(scan.next()),checkIsInputNumber(scan.next()));
+					
+				}
+				
+				else
+				{
+					regen[i].setB(regen[0].getB());
+					regen[i].setR(regen[0].getR());
+					regen[i].setG(regen[0].getG());
+				}
 				break;
 				default:   
 				if(regen[i].getYSize() > 11)
@@ -109,6 +145,7 @@ public class drop extends JFrame
 		gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		gui.setResizable(false);
 		gui.setVisible(true);
+		scan.close();
 		while(true)
 		{
 			for(int i = 0; i < regen.length; i++)
