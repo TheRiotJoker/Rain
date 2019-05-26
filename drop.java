@@ -76,16 +76,17 @@ public class drop extends JFrame
 				case "RED":
 				if(regen[i].getYSize() > 11)
 				{
-					regen[i].setR(255-(11));
-					regen[i].setB(121);
-					regen[i].setG(121);
+					regen[i].setR(255);
+					regen[i].setB(100);
+					regen[i].setG(100);
 				}
 				else
 				{
-					regen[i].setR(255-(regen[i].getYSize()));
+					regen[i].setR(259-(regen[i].getYSize()));
 					regen[i].setB(0+(regen[i].getYSize()*regen[i].getYSize()));
 					regen[i].setG(0+(regen[i].getYSize()*regen[i].getYSize()));
 				}
+				bg = new Color(222,222,222);
 				break;
 				case "RAINBOW":
 				regen[i].setB(randGen(255,0));
