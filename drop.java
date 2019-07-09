@@ -1,3 +1,8 @@
+/*
+Author of the program: Marko Jurkic / Rottweil, Germany
+https://github.com/TheRiotJoker
+Contact: marko.jurkic23@gmail.com
+*/
 import java.awt.*;
 import javax.swing.*;
 import java.util.Random;
